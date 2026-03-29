@@ -1,0 +1,27 @@
+<div class="tech-root">
+  <header class="page-header">
+    <h1 class="mat-headline-5 page-title">Tech Stack</h1>
+  </header>
+
+  <div class="grid">
+    @for (g of groups; track g.title; let ti = $index) {
+      <mat-card [class]="'stack-card stack-card--' + (ti % 5)" appearance="outlined">
+        <mat-card-header class="stack-card__head">
+          <div class="stack-card__icon-wrap">
+            <mat-icon class="stack-card__icon">{{ g.icon }}</mat-icon>
+          </div>
+          <mat-card-title class="stack-card__title">{{ g.title }}</mat-card-title>
+        </mat-card-header>
+        <mat-card-content class="stack-card__body">
+          <div class="chip-row" role="group" [attr.aria-label]="g.title">
+            <mat-chip-set>
+              @for (item of g.items; track item) {
+                <mat-chip class="tech-chip" disableRipple>{{ item }}</mat-chip>
+              }
+            </mat-chip-set>
+          </div>
+        </mat-card-content>
+      </mat-card>
+    }
+  </div>
+</div>

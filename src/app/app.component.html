@@ -1,0 +1,43 @@
+<mat-sidenav-container class="shell">
+  <mat-sidenav
+    class="shell__nav"
+    [mode]="sidenavMode()"
+    [opened]="sidenavOpened()"
+    [fixedInViewport]="true"
+  >
+    <div class="shell__brand mat-body-large">Process map</div>
+    <mat-nav-list>
+      @for (item of navItems; track item.path) {
+        <a
+          mat-list-item
+          [routerLink]="item.path"
+          routerLinkActive="shell__link--active"
+          [routerLinkActiveOptions]="{ exact: true }"
+          (click)="onNavClick()"
+        >
+          <mat-icon matListItemIcon>{{ item.icon }}</mat-icon>
+          <span matListItemTitle>{{ item.label }}</span>
+        </a>
+      }
+    </mat-nav-list>
+  </mat-sidenav>
+
+  <mat-sidenav-content class="shell__main">
+    @if (isHandset()) {
+      <mat-toolbar class="shell__toolbar">
+        <button
+          mat-icon-button
+          type="button"
+          aria-label="Open navigation menu"
+          (click)="toggleSidenav()"
+        >
+          <mat-icon>menu</mat-icon>
+        </button>
+        <span class="shell__toolbar-title">Development process</span>
+      </mat-toolbar>
+    }
+    <main class="shell__content">
+      <router-outlet />
+    </main>
+  </mat-sidenav-content>
+</mat-sidenav-container>

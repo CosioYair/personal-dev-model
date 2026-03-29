@@ -1,0 +1,70 @@
+@if (section(); as s) {
+  <div class="section-root" [attr.data-section]="sectionId()">
+    <header class="page-header">
+      <h1 class="mat-headline-5 page-title">{{ s.title }}</h1>
+    </header>
+
+    @if (s.groups.length === 1) {
+      <mat-card class="group-card group-card--solo" appearance="outlined">
+        <mat-card-header class="group-card__head">
+          @if (s.groups[0].icon) {
+            <div class="header-icon-wrap">
+              <mat-icon class="header-avatar">{{ s.groups[0].icon }}</mat-icon>
+            </div>
+          }
+          <div class="group-card__titles">
+            <mat-card-title>{{ s.groups[0].title }}</mat-card-title>
+          </div>
+        </mat-card-header>
+        <mat-card-content class="group-card__body">
+          <mat-list class="concept-list" role="list">
+            @for (item of s.groups[0].items; track item.label; let i = $index) {
+              <mat-list-item
+                class="concept-row"
+                [class.concept-row--alt]="i % 2 === 1"
+                role="listitem"
+              >
+                @if (item.icon) {
+                  <mat-icon matListItemIcon class="concept-row__icon">{{ item.icon }}</mat-icon>
+                }
+                <span matListItemTitle class="concept-row__label">{{ item.label }}</span>
+              </mat-list-item>
+            }
+          </mat-list>
+        </mat-card-content>
+      </mat-card>
+    } @else {
+      <mat-accordion class="group-accordion" multi>
+        @for (group of s.groups; track group.title; let pi = $index) {
+          <mat-expansion-panel
+            [class]="'panel-themed panel-themed--' + (pi % 5)"
+            [expanded]="true"
+          >
+            <mat-expansion-panel-header>
+              <mat-panel-title class="panel-title">
+                @if (group.icon) {
+                  <mat-icon class="panel-icon">{{ group.icon }}</mat-icon>
+                }
+                <span>{{ group.title }}</span>
+              </mat-panel-title>
+            </mat-expansion-panel-header>
+            <mat-list class="concept-list" role="list">
+              @for (item of group.items; track item.label; let i = $index) {
+                <mat-list-item
+                  class="concept-row"
+                  [class.concept-row--alt]="i % 2 === 1"
+                  role="listitem"
+                >
+                  @if (item.icon) {
+                    <mat-icon matListItemIcon class="concept-row__icon">{{ item.icon }}</mat-icon>
+                  }
+                  <span matListItemTitle class="concept-row__label">{{ item.label }}</span>
+                </mat-list-item>
+              }
+            </mat-list>
+          </mat-expansion-panel>
+        }
+      </mat-accordion>
+    }
+  </div>
+}
