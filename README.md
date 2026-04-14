@@ -36,6 +36,26 @@ ng build
 
 This will compile your project and store the build artifacts in the `dist/` directory. By default, the production build optimizes your application for performance and speed.
 
+### GitHub Pages
+
+The site is built for the repository path **`/personal-dev-model/`** (project Pages). GitHub Actions (`.github/workflows/deploy-github-pages.yml`) publishes the **`browser`** output on every push to **`main`**.
+
+1. In the GitHub repo, go to **Settings → Pages**.
+2. Under **Build and deployment**, set **Source** to **GitHub Actions** (not “Deploy from a branch”).
+3. Push to **`main`**; when the workflow finishes, open:
+
+   **`https://<tu-usuario>.github.io/personal-dev-model/`**
+
+   Las rutas usan **hash** (`#/core`, `#/frontend`, …) para que funcionen en Pages sin servidor.
+
+Local build for Pages:
+
+```bash
+npm run build:github-pages
+```
+
+Si renombrás el repositorio, actualizá **`baseHref`** en `angular.json` → `projects.personal-dev-model.architect.build.configurations.github-pages.baseHref` (debe ser `/<nombre-del-repo>/`).
+
 ## Running unit tests
 
 To execute unit tests with the [Karma](https://karma-runner.github.io) test runner, use the following command:
